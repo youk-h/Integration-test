@@ -12,6 +12,7 @@
 Postgresコンテナの準備を以下の二つのコマンドで行います
 
 `docker build -t postgres:e2e .`
+
 `docker run -it --rm -d --name postgres -p 5432:5432 postgres:e2e`
 
 ## REST API実行
