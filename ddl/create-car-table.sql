@@ -1,0 +1,4 @@
+CREATE TABLE CAR(
+  name TEXT NOT NULL,
+  maker TEXT NOT NULL
+);
