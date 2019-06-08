@@ -1,7 +1,3 @@
 FROM postgres:10.6
 
-ENV POSTGRES_USER postgres
-ENV POSTGRES_PASSWORD postgres
-ENV POSTGRES_DB postgres
-
 COPY ./ddl /docker-entrypoint-initdb.d/
