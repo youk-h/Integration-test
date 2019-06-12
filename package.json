@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node rest-api-server/router.ts",
     "build": "tsc ./rest-api-server/router.ts --outDir dist/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint --fix './rest-api-server/*.ts'"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +22,7 @@
     "@types/pg": "^7.4.14",
     "ts-node": "^8.2.0",
     "tsc": "^1.20150623.0",
+    "tslint": "^5.17.0",
     "typescript": "^3.5.1"
   }
 }
