@@ -1,0 +1,15 @@
+version: "3"
+services:
+  postgres-e2e:
+    build:
+      context: ./
+      dockerfile: Dockerfile-postgres
+    container_name: postgres-e2e
+
+  rest-api-server-e2e:
+    build:
+      context: ../
+      dockerfile: Dockerfile-app
+    container_name: rest-api-server-e2e
+    ports:
+      - 3000:3000
