@@ -1,0 +1,16 @@
+FROM node:10.16.0
+
+USER node
+
+COPY --chown=node ./package.json /app/
+WORKDIR /app
+
+RUN npm install
+
+COPY --chown=node . /app
+
+RUN npm run build
+
+RUN cp -r ./rest-api-server/sql dist/
+
+CMD ["node", "dist/router.js"]
