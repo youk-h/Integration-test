@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node rest-api-server/router.ts",
+    "start": "docker-compose -f ./e2e/docker-compose.yml up -d --build ",
+    "end": "docker-compose -f ./e2e/docker-compose.yml down",
     "build": "tsc ./rest-api-server/router.ts --outDir dist/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint --fix './rest-api-server/*.ts'"
