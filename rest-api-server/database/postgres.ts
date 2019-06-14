@@ -1,7 +1,7 @@
 import * as fs from "fs";
 
-import { of, throwError, from, Observable } from "rxjs";
-import { mergeMap, catchError, finalize } from "rxjs/operators";
+import { of, from, Observable } from "rxjs";
+import { mergeMap, catchError, finalize, map } from "rxjs/operators";
 
 import { Pool, QueryResult, PoolClient } from "pg";
 
@@ -11,7 +11,7 @@ export class Database {
       user: "postgres",
       password: "postgres",
       database: "postgres",
-      host: "localhost",
+      host: "postgres-e2e",
       port: 5432,
     });
 
@@ -26,14 +26,14 @@ export class Database {
         mergeMap(() => client.query("BEGIN")),
         mergeMap(() => from(client.query(sql, placeHolder)).pipe(
           mergeMap((response: QueryResult) => {
+            console.log(response);
             client.query("COMMIT");
             return of(response);
           }),
         )),
-        catchError((error) => {
-          client.query("ROLLBACK");
-          return throwError(error);
-        }),
+        catchError((error) => from(client.query("ROLLBACK")).pipe(
+          map(() => { throw error }))
+        ),
         finalize(() => client.release()),
       )),
     );
