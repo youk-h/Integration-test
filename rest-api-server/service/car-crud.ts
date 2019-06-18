@@ -17,8 +17,8 @@ export class CarManager {
 
     return Database.transaction$(filePath, placeHolder).pipe(
       map((result: QueryResult) => ({
-        name: result.rows[0].name,
-        maker: result.rows[0].maker,
+        name: result.rows[0] ? result.rows[0].name : undefined,
+        maker: result.rows[0] ? result.rows[0].maker : undefined,
       })),
       catchError(() => {
         const err = {
