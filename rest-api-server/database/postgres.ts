@@ -24,13 +24,12 @@ export class Database {
     return Database.connect$().pipe(
       mergeMap((client) => of(client).pipe(
         mergeMap(() => client.query("BEGIN")),
-        mergeMap(() => from(client.query(sql, placeHolder)).pipe(
-          mergeMap((response: QueryResult) => {
-            console.log(response);
-            client.query("COMMIT");
-            return of(response);
-          }),
-        )),
+        mergeMap(() => from(client.query(sql, placeHolder))),
+        mergeMap((response: QueryResult) => {
+          return from(client.query("COMMIT")).pipe(
+            map(() => response),
+          );
+        }),
         catchError((error) => from(client.query("ROLLBACK")).pipe(
           map(() => { throw error }))
         ),
