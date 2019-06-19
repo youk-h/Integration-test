@@ -5,6 +5,8 @@ services:
       context: ./
       dockerfile: Dockerfile-postgres
     container_name: postgres-e2e
+    ports:
+      - 5432:5432
 
   rest-api-server-e2e:
     build:
