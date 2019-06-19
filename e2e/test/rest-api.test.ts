@@ -18,6 +18,16 @@ describe("rest-api", () => {
   afterEach((done) => setTimeout(done, 1));
 
   describe("POST /cars should insert car data", () => {
+    test("GET /cars/demio should not get car data", (done) => {
+      RxHR.get(`${baseUrl}/cars/demio`, { json: true }).subscribe(
+        (response) => {
+          expect(response.response.statusCode).toBe(404);
+          expect(response.body).toBe("Not Found");
+        },
+        (e) => fail(e),
+      ).add(done);
+    });
+
     test("POST /cars should insert car data", (done) => {
       const body = {
         name: "demio",
