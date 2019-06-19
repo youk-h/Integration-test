@@ -16,10 +16,13 @@ export class CarManager {
     ];
 
     return Database.transaction$(filePath, placeHolder).pipe(
-      map((result: QueryResult) => ({
-        name: result.rows[0] ? result.rows[0].name : undefined,
-        maker: result.rows[0] ? result.rows[0].maker : undefined,
-      })),
+      map((result: QueryResult) => {
+        if (result.rowCount !== 1) { throw new Error(); }
+        return {
+          name: result.rows[0] ? result.rows[0].name : undefined,
+          maker: result.rows[0] ? result.rows[0].maker : undefined,
+        };
+      }),
       catchError(() => {
         const err = {
           code: 404,
