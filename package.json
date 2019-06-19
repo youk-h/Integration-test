@@ -8,7 +8,7 @@
     "end": "docker-compose -f ./e2e/docker-compose.yml down",
     "build": "tsc ./rest-api-server/router.ts --outDir dist/",
     "test": "jest ./e2e/test --detectOpenHandles --config=./e2e/jest.config.js",
-    "e2e": "run-s -c start test end",
+    "e2e": "run-s -c end start test end",
     "lint": "tslint --fix './rest-api-server/*.ts'"
   },
   "author": "",
